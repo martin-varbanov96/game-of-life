@@ -1,0 +1,22 @@
+#main{
+    margin: 0px auto;
+    width: 50%;
+}
+#container{
+    border: 1px solid black;
+    width: 200px;
+    height: 150px;
+}
+.dead-square, .alive-square{
+    margin: 3px;
+    width: 50px;
+    height: 40px;
+    display: inline-block;
+}
+.dead-square{
+    background-color: #D54;
+
+}
+.alive-square{
+    background-color: #5D4;
+}
