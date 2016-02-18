@@ -7,17 +7,19 @@
     <title></title>
 </head>
 <body>
-    <h1>Hello world</h1>
-    <div id="main">
+    <div id= header> 
         <div id="main-menu">
             <button id="step-into">Step Into</button>
             <div id="set-size">
-                <input type="text" onblur="if(this.value==''){this.value='Enter width:'}" onfocus="if(this.value=='Enter width:'){this.value=''}" value = "Enter width:" id="set-width-size" clas="set-size-input">
-                <input type="text" onblur="if(this.value==''){this.value='Enter height:'}" onfocus="if(this.value=='Enter height:'){this.value=''}" value = "Enter height:" id="set-height-size" clas="set-size-input">
+                <input type="text" onblur="if(this.value==''){this.value='Enter width:'}" onfocus="if(this.value=='Enter width:'){this.value=''}" value = "Enter width:" id="set-width-size" class="set-size-input">
+                <input type="text" onblur="if(this.value==''){this.value='Enter height:'}" onfocus="if(this.value=='Enter height:'){this.value=''}" value = "Enter height:" id="set-height-size" class="set-size-input">
                 <button id="set-size-button">Set size</button>
-
-            </div>
-        </div>
+            </div> 
+        </div>               
+    
+    </div>
+    <div id="main">
+       
         <div id="container">   
             <table>
                 <tbody id="elements-container">                
@@ -38,6 +40,8 @@
     </div>
         
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
     <script src="script/app.js"></script>
 </body>
 </html>

@@ -13,7 +13,6 @@ $(document).ready(function(){
             $("#elements-container").append("<tr>");
             for(var j = 0; j < arrayHeight; j++){
                 $("#elements-container").append("<td><div class='dead-square' id=" + i + j + ">");
-
             }
         }
     });
@@ -78,7 +77,7 @@ $(document).ready(function(){
             }
         }
         if((count != 3) && (count != 2)){
-            $("#" + i + "" + j).attr("class", "dead-square");
+            $("#" + i + "" + j).switchClass("alive-square", "dead-square", 500);
         }
         
     }
@@ -103,14 +102,14 @@ $(document).ready(function(){
             }
         }
         if(count == 3){
-            $("#" + i + "" + j).attr("class", "alive-square");
+            $("#" + i + "" + j).switchClass("dead-square", "alive-square", 500);
         }
     }
     
     //sets the value of the square in the main matrix
     function setInMatrix(elementId){
         var value = $(elementId).attr("id");
-        var j = value%10;
+        var j = value%10;            
         var i = Math.floor(value/10);
         if($(elementId).attr("class") == "dead-square"){
             arrayElements[i][j] = 0;
