@@ -1,7 +1,22 @@
 $(document).ready(function(){
     
-    var arraySize = 9; //TEMP, change dynamically
-    var arrayElements = getEmptyMatrix([], arraySize);
+    var arrayHeight = 4;
+    var arrayWidth = 4;
+    var arrayElements = getEmptyMatrix([], 200, 200);
+    
+    //set size button click
+    $("#set-size-button").click(function(){
+        arrayHeight = $("#set-height-size").attr("value");
+        arrayWidth = $("#set-width-size").attr("value");
+        $("#elements-container").empty();
+        for(var i = 0; i < arrayWidth; i++){
+            $("#elements-container").append("<tr>");
+            for(var j = 0; j < arrayHeight; j++){
+                $("#elements-container").append("<td><div class='dead-square' id=" + i + j + ">");
+
+            }
+        }
+    });
     
     //toggling between dead and alive
     $(".dead-square").live("click", function(){
@@ -12,12 +27,12 @@ $(document).ready(function(){
     });
     
     //might have to change click() -> live()
-    $("#main-menu").click(function(){
+    $("#step-into").click(function(){
         $(".dead-square, .alive-square").each(function(){
             setInMatrix(this);            
         });
-        for(var i = 0; i < Math.sqrt(arraySize); i++){
-            for(var j = 0; j < Math.sqrt(arraySize); j++){
+        for(var i = 0; i < arrayWidth; i++){
+            for(var j = 0; j < arrayHeight; j++){
                 if(arrayElements[i][j] == 0){
                     deadTransition(i, j);
                 }else if(arrayElements[i][j] == 1){
@@ -25,10 +40,23 @@ $(document).ready(function(){
                 }                
             }            
         }
-        console.log(arrayElements);
-
     });
-
+    //TODO- step back
+//    $("#step-back").click(function(){
+//        $(".dead-square, .alive-square").each(function(){
+//            setInMatrix(this);
+//            for(var i = 0; i < Math.sqrt(arraySize); i++){
+//                for(var j = 0; j < Math.sqrt(arraySize); j++){
+//                    if(arrayElements[i][j] == 0){
+//                        reverseDeadTransition(i, j);
+//                    }else if(arrayElements[i][j] == 1){
+//                        aliveTransition(i, j);
+//                    }                
+//                }            
+//            }
+//        });
+//        
+//    });
     // checks if any alive transition can be made
     function aliveTransition(i, j){
         var count = 0;
@@ -37,9 +65,9 @@ $(document).ready(function(){
                 if(
                     ((row == i ) && (col == j)) ||
                     (row < 0 ) || 
-                    (row >= Math.sqrt(arraySize) ||
+                    (row >= arrayWidth ||
                     (col < 0 ) || 
-                    (col >= Math.sqrt(arraySize))
+                    (col >= arrayHeight)
                    ) 
                   ){
                     continue;
@@ -49,7 +77,6 @@ $(document).ready(function(){
                 }
             }
         }
-        console.log(count);
         if((count != 3) && (count != 2)){
             $("#" + i + "" + j).attr("class", "dead-square");
         }
@@ -63,9 +90,9 @@ $(document).ready(function(){
                 if(
                     ((row == i ) && (col == j)) ||
                     (row < 0 ) || 
-                    (row >= Math.sqrt(arraySize) ||
+                    (row >= arrayWidth ||
                     (col < 0 ) || 
-                    (col >= Math.sqrt(arraySize))
+                    (col >= arrayHeight)
                    ) 
                   ){
                     continue;
@@ -92,11 +119,14 @@ $(document).ready(function(){
 
         }        
     }
-    
+    //TODO- reverses the value of the previous dead transition
+    function reverseDeadTransition(i, j){
+        
+    }
     //Returns an empty Matrix nxn
-    function getEmptyMatrix(inputMatrix, n) {
-        for (var i = 0; i < Math.sqrt(n); i++) {
-            inputMatrix[i] = new Array(Math.sqrt(n));
+    function getEmptyMatrix(inputMatrix, width, height) {
+        for (var i = 0; i < width; i++) {
+            inputMatrix[i] = new Array(height);
         }
         return inputMatrix;
     }

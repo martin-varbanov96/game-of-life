@@ -10,9 +10,20 @@
     <h1>Hello world</h1>
     <div id="main">
         <div id="main-menu">
-            <button id="step-into">Step</button>
+            <button id="step-into">Step Into</button>
+            <div id="set-size">
+                <input type="text" onblur="if(this.value==''){this.value='Enter width:'}" onfocus="if(this.value=='Enter width:'){this.value=''}" value = "Enter width:" id="set-width-size" clas="set-size-input">
+                <input type="text" onblur="if(this.value==''){this.value='Enter height:'}" onfocus="if(this.value=='Enter height:'){this.value=''}" value = "Enter height:" id="set-height-size" clas="set-size-input">
+                <button id="set-size-button">Set size</button>
+
+            </div>
         </div>
-        <div id="container">            
+        <div id="container">   
+            <table>
+                <tbody id="elements-container">                
+                </tbody>
+            </table>
+<!--
             <div class="dead-square" id="00"></div>
             <div class="dead-square" id="01"></div>
             <div class="dead-square" id="02"></div>
@@ -22,6 +33,7 @@
             <div class="dead-square" id="20"></div>
             <div class="dead-square" id="21"></div>
             <div class="dead-square" id="22"></div>
+-->
         </div>
     </div>
         
