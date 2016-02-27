@@ -10,6 +10,7 @@
     <div id= header> 
         <div id="main-menu">
             <button id="step-into">Step Into</button>
+            <button id="step-back">Step Back</button>
             <div id="set-size">
                 <input type="text" onblur="if(this.value==''){this.value='Enter width:'}" onfocus="if(this.value=='Enter width:'){this.value=''}" value = "Enter width:" id="set-width-size" class="set-size-input">
                 <input type="text" onblur="if(this.value==''){this.value='Enter height:'}" onfocus="if(this.value=='Enter height:'){this.value=''}" value = "Enter height:" id="set-height-size" class="set-size-input">
@@ -18,24 +19,27 @@
         </div>               
     
     </div>
-    <div id="main">
-       
+    <div id="main">       
         <div id="container">   
             <table>
-                <tbody id="elements-container">                
+                <tbody id="elements-container">
+                    <div id="div-intro">
+                        <h1>Game of life</h1>
+                        <h2>Rules:</h2>
+                        <div>In this game there are a number of squares. The brown ones are the dead, the green ones are alive. As time passes some die, some are born.</div>
+                        <div>
+                        If a living square has 2 or 3 living neighbours, it will keep on living, else, it dies. 
+                        </div>
+                        <div>
+                        If a dead square has exactly 3 living neighboors, after the step, it will be brought back to life.
+                        </div>
+                        <h2>How to play:</h2>
+                        <div>
+                            Set the size of the board the way you like. Chose which square is going to be alive and which- dead, click STEP INTO to see what will happen in one step time, click STEP BACK to see what will happen one step back.  
+                        </div>
+                    </div>
                 </tbody>
             </table>
-<!--
-            <div class="dead-square" id="00"></div>
-            <div class="dead-square" id="01"></div>
-            <div class="dead-square" id="02"></div>
-            <div class="dead-square" id="10"></div>
-            <div class="dead-square" id="11"></div>
-            <div class="alive-square" id="12"></div>
-            <div class="dead-square" id="20"></div>
-            <div class="dead-square" id="21"></div>
-            <div class="dead-square" id="22"></div>
--->
         </div>
     </div>
         

@@ -30,17 +30,17 @@ body{
 .alive-square{
     background-color: #272;
 }
-#step-into, #set-size{
+#step-into, #set-size, #step-back{
     display: inline;
 }
-#step-into, #set-size-button{    
+#step-into, #set-size-button, #step-back{    
     border-radius: 6px;
     background-color: #272;
     width: 150px;
     height: 70px;
     color: whitesmoke;    
 }
-#step-into:hover, #set-size-button:hover{
+#step-into:hover, #set-size-button:hover, #step-back:hover{
     background-color: #2A2;
 } 
 .set-size-input{ 
@@ -54,6 +54,6 @@ body{
 }
 #main-menu{
     margin: 0px auto;
-    width: 50%; 
+    width: 60%; 
     padding-top: 10px;
 }

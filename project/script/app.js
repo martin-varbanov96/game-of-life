@@ -2,17 +2,19 @@ $(document).ready(function(){
     
     var arrayHeight = 4;
     var arrayWidth = 4;
-    var arrayElements = getEmptyMatrix([], 200, 200);
+    var arrayElements = [];
+    arrayElements = getEmptyMatrix(arrayElements, 30, 30);
+    var arrayStackMemo = new Array();
     
     //set size button click
     $("#set-size-button").click(function(){
         arrayHeight = $("#set-height-size").attr("value");
         arrayWidth = $("#set-width-size").attr("value");
-        $("#elements-container").empty();
+        $("#elements-container, #div-intro").empty();
         for(var i = 0; i < arrayWidth; i++){
             $("#elements-container").append("<tr>");
             for(var j = 0; j < arrayHeight; j++){
-                $("#elements-container").append("<td><div class='dead-square' id=" + i + j + ">");
+                $("#elements-container").append("<td><div class='dead-square' data-width=" + i + " data-height=" + j + " id=" + i + j + ">");
             }
         }
     });
@@ -25,7 +27,7 @@ $(document).ready(function(){
         $(this).attr("class", "dead-square");
     });
     
-    //might have to change click() -> live()
+    //step into function
     $("#step-into").click(function(){
         $(".dead-square, .alive-square").each(function(){
             setInMatrix(this);            
@@ -39,23 +41,33 @@ $(document).ready(function(){
                 }                
             }            
         }
+        arrayStackMemo.push(JSON.parse(JSON.stringify(arrayElements)));  
+        console.log(arrayStackMemo);
     });
-    //TODO- step back
-//    $("#step-back").click(function(){
-//        $(".dead-square, .alive-square").each(function(){
-//            setInMatrix(this);
-//            for(var i = 0; i < Math.sqrt(arraySize); i++){
-//                for(var j = 0; j < Math.sqrt(arraySize); j++){
-//                    if(arrayElements[i][j] == 0){
-//                        reverseDeadTransition(i, j);
-//                    }else if(arrayElements[i][j] == 1){
-//                        aliveTransition(i, j);
-//                    }                
-//                }            
-//            }
-//        });
-//        
-//    });
+    
+    //go back with one step
+    $("#step-back").click(function(){
+        if(arrayStackMemo[0]){      
+            console.log(arrayStackMemo);
+            console.log("up is memo");
+            arrayElements = arrayStackMemo.pop();
+            console.log(arrayElements);
+            console.log("up is elements");
+
+            arrayHeight = $("#set-height-size").attr("value");
+            arrayWidth = $("#set-width-size").attr("value");
+            for(var i = 0; i < arrayHeight; i++ ){        
+                for(var k = 0; k < arrayWidth; k++){
+                    if((arrayElements[i][k] == 0) && ($("#" + i + "" + k).attr("class")) == "alive-square"){
+                        $("#" + i + "" + k).switchClass("alive-square", "dead-square", 500);
+                    }else if((arrayElements[i][k] == 1) && ($("#" + i + "" + k).attr("class")) == "dead-square"){
+                        $("#" + i + "" + k).switchClass("dead-square", "alive-square", 500);
+                    }
+                }
+            }
+        }
+    });
+    
     // checks if any alive transition can be made
     function aliveTransition(i, j){
         var count = 0;
@@ -81,6 +93,7 @@ $(document).ready(function(){
         }
         
     }
+    
     //checks if any deadTransition can be made
     function deadTransition(i, j){
         var count = 0;
@@ -108,9 +121,9 @@ $(document).ready(function(){
     
     //sets the value of the square in the main matrix
     function setInMatrix(elementId){
-        var value = $(elementId).attr("id");
-        var j = value%10;            
-        var i = Math.floor(value/10);
+        //var value = $(elementId).attr("id");
+        var j = $(elementId).attr("data-height");            
+        var i = $(elementId).attr("data-width"); 
         if($(elementId).attr("class") == "dead-square"){
             arrayElements[i][j] = 0;
         }else if($(elementId).attr("class") == "alive-square"){
@@ -118,10 +131,7 @@ $(document).ready(function(){
 
         }        
     }
-    //TODO- reverses the value of the previous dead transition
-    function reverseDeadTransition(i, j){
-        
-    }
+    
     //Returns an empty Matrix nxn
     function getEmptyMatrix(inputMatrix, width, height) {
         for (var i = 0; i < width; i++) {
