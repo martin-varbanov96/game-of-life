@@ -5,19 +5,7 @@ $(document).ready(function(){
     var arrayElements = [];
     arrayElements = getEmptyMatrix(arrayElements, 30, 30);
     var arrayStackMemo = new Array();
-    
-    //set size button click
-    $("#set-size-button").click(function(){
-        arrayHeight = $("#set-height-size").attr("value");
-        arrayWidth = $("#set-width-size").attr("value");
-        $("#elements-container, #div-intro").empty();
-        for(var i = 0; i < arrayWidth; i++){
-            $("#elements-container").append("<tr>");
-            for(var j = 0; j < arrayHeight; j++){
-                $("#elements-container").append("<td><div class='dead-square' data-width=" + i + " data-height=" + j + " id=" + i + j + ">");
-            }
-        }
-    });
+    var loopInterval;
     
     //toggling between dead and alive
     $(".dead-square").live("click", function(){
@@ -27,33 +15,33 @@ $(document).ready(function(){
         $(this).attr("class", "dead-square");
     });
     
+    //loop step into
+    $("#step-loop").live("click",function(){
+        $(this).attr("id", "step-canceled").html("Stop loop");
+        loopInterval = setInterval(function(){
+            if(isDead()){
+                $("#step-canceled").attr("id", "step-loop").html("Start Loop");        
+                clearInterval(loopInterval);                
+            }
+            stepIntoTrasition();
+            console.log("looping"); //TEMP CLEAN LATER
+        }, 500);
+    });
+    
+    $("#step-canceled").live("click", function(){
+        $(this).attr("id", "step-loop").html("Start Loop");
+        clearInterval(loopInterval);
+    });
+    
     //step into function
     $("#step-into").click(function(){
-        $(".dead-square, .alive-square").each(function(){
-            setInMatrix(this);            
-        });
-        for(var i = 0; i < arrayWidth; i++){
-            for(var j = 0; j < arrayHeight; j++){
-                if(arrayElements[i][j] == 0){
-                    deadTransition(i, j);
-                }else if(arrayElements[i][j] == 1){
-                    aliveTransition(i, j);
-                }                
-            }            
-        }
-        arrayStackMemo.push(JSON.parse(JSON.stringify(arrayElements)));  
-        console.log(arrayStackMemo);
+        stepIntoTrasition();
     });
     
     //go back with one step
     $("#step-back").click(function(){
         if(arrayStackMemo[0]){      
-            console.log(arrayStackMemo);
-            console.log("up is memo");
             arrayElements = arrayStackMemo.pop();
-            console.log(arrayElements);
-            console.log("up is elements");
-
             arrayHeight = $("#set-height-size").attr("value");
             arrayWidth = $("#set-width-size").attr("value");
             for(var i = 0; i < arrayHeight; i++ ){        
@@ -68,12 +56,42 @@ $(document).ready(function(){
         }
     });
     
+    //set size button click
+    $("#set-size-button").click(function(){
+        arrayHeight = $("#set-height-size").attr("value");
+        arrayWidth = $("#set-width-size").attr("value");
+        $("#elements-container, #div-intro").empty();
+        for(var i = 0; i < arrayWidth; i++){
+            $("#elements-container").append("<tr>");
+            for(var j = 0; j < arrayHeight; j++){
+                $("#elements-container").append("<td><div class='dead-square' data-width=" + i + " data-height=" + j + " id=" + i + j + ">");
+            }
+        }
+    });
+    
     //reset the board
     $("#step-reset").click(function(){
         if(!isDead()){
             resetBoard();
         }
     });
+    
+    //
+    function stepIntoTrasition(){        
+        $(".dead-square, .alive-square").each(function(){
+            setInMatrix(this);            
+        });
+        for(var i = 0; i < arrayWidth; i++){
+            for(var j = 0; j < arrayHeight; j++){
+                if(arrayElements[i][j] == 0){
+                    deadTransition(i, j);
+                }else if(arrayElements[i][j] == 1){
+                    aliveTransition(i, j);
+                }                
+            }            
+        }
+        arrayStackMemo.push(JSON.parse(JSON.stringify(arrayElements)));  
+    }
     
     // checks if any alive transition can be made
     function aliveTransition(i, j){
