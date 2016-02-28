@@ -33,14 +33,14 @@ body{
 #step-into, #set-size, #step-back{
     display: inline;
 }
-#step-into, #set-size-button, #step-back{    
+#set-size-button, .step-button{    
     border-radius: 6px;
     background-color: #272;
     width: 150px;
     height: 70px;
     color: whitesmoke;    
 }
-#step-into:hover, #set-size-button:hover, #step-back:hover{
+#set-size-button:hover, .step-button:hover{
     background-color: #2A2;
 } 
 .set-size-input{ 
@@ -54,6 +54,6 @@ body{
 }
 #main-menu{
     margin: 0px auto;
-    width: 60%; 
+    width: 80%; 
     padding-top: 10px;
 }

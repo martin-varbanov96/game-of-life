@@ -9,13 +9,15 @@
 <body>
     <div id= header> 
         <div id="main-menu">
-            <button id="step-into">Step Into</button>
-            <button id="step-back">Step Back</button>
+            <button id="step-loop" class="step-button">Loop</button>
+            <button id="step-into" class="step-button">Step Into</button>
+            <button id="step-back" class="step-button">Step Back</button>
             <div id="set-size">
                 <input type="text" onblur="if(this.value==''){this.value='Enter width:'}" onfocus="if(this.value=='Enter width:'){this.value=''}" value = "Enter width:" id="set-width-size" class="set-size-input">
                 <input type="text" onblur="if(this.value==''){this.value='Enter height:'}" onfocus="if(this.value=='Enter height:'){this.value=''}" value = "Enter height:" id="set-height-size" class="set-size-input">
                 <button id="set-size-button">Set size</button>
             </div> 
+            <button id="step-reset" class="step-button">Reset</button>
         </div>               
     
     </div>

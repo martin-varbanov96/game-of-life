@@ -68,6 +68,13 @@ $(document).ready(function(){
         }
     });
     
+    //reset the board
+    $("#step-reset").click(function(){
+        if(!isDead()){
+            resetBoard();
+        }
+    });
+    
     // checks if any alive transition can be made
     function aliveTransition(i, j){
         var count = 0;
@@ -132,6 +139,28 @@ $(document).ready(function(){
         }        
     }
     
+    //check if board is cleared
+    function isDead(){
+        var temp;
+        for(var i = 0; i < arrayWidth; i++){
+            for(var j = 0; j < arrayHeight; j++){
+                temp = $("#" + i + "" + j).attr("class");
+                if(temp != "dead-square"){
+                    return false;
+                }
+            }            
+        }
+        return true;
+    }
+    
+    //reset board
+    function resetBoard(){
+        for(var i = 0; i < arrayWidth; i++){
+            for(var j = 0; j < arrayHeight; j++){
+             $("#" + i + "" +  j).attr("class", "dead-square");   
+            }            
+        }
+    }
     //Returns an empty Matrix nxn
     function getEmptyMatrix(inputMatrix, width, height) {
         for (var i = 0; i < width; i++) {
